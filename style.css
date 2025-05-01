@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -22,7 +21,7 @@ body {
   background-color: var(--c1);
 }  
 
-.slider {
+.slide {
   --slider-width: 30vw;
   aspect-ratio: 161/100;
   width: var(--slider-width);

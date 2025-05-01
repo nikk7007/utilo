@@ -1,10 +1,10 @@
-class Slider {
+export class Slide {
   #index
   #items
   #container
   #idSlider
   #pause
-  constructor(container, timeInterval, amoutRepeat = -1) {
+  constructor(container, timeInterval, pauseble = false, amoutRepeat = -1) {
     this.#index = 0;
     this.#pause = false;
     this.#container = container
@@ -16,7 +16,19 @@ class Slider {
     }
     this.#idSlider = setInterval(this.#action, this.interval)
     this.configAnimation()
-    this.configPause(true)
+    this.configPause(pauseble)
+  }
+
+  get container() {
+    return this.#container
+  }
+
+  get items() {
+    return items
+  }
+
+  get isPaused() {
+    return this.#pause
   }
 
   #action = () => {
@@ -58,6 +70,19 @@ class Slider {
     return this
   }
 
+  configPause = (pauseble = false, visualReturn = this.#visualReturn) => {
+    if (pauseble) {
+      this.pause = () => {
+        this.#pause = !this.#pause
+        this.#visualReturn()
+        return this
+      }
+    } else {
+      this.pause = () => { }
+    }
+    this.#visualReturn = visualReturn;
+  }
+
   #visualReturn = () => {
     if (this.#pause) {
       if (this.#container.style.transition == '') {
@@ -72,16 +97,5 @@ class Slider {
       })
 
     }
-  }
-
-  configPause = (pauseble = false, visualReturn = this.#visualReturn) => {
-    if (pauseble) {
-      this.pause = () => {
-        this.#pause = !this.#pause
-        this.#visualReturn()
-        return this
-      }
-    }
-    this.#visualReturn = visualReturn;
   }
 }
